@@ -1,0 +1,71 @@
+
+			<!-- MAIN CONTENT-->
+			<div class="main-content">
+				<div class="section-content section-content-p30">
+                    <!-- <h4>Category : {{currentCategoryName}}</h4> -->
+                    <hr>
+
+					<div class="container-fluid">
+
+						<div class="row">
+                            <!-- loop over the collection of books -->
+                            <div *ngFor="let tempBook of books" class="col-md-3">
+                                <div class="product-box">
+                                    <a routerLink="/books/{{tempBook.id}}">
+                                        <img src="{{tempBook.imageUrl}}" class="img-responsive">
+                                    </a>
+                                    <br>
+                                    <a routerLink="/books/{{tempBook.id}}">
+                                        <h1>{{tempBook.name}}</h1>
+                                    </a>
+                                    <br>
+                                    <!-- <div class="price"> {{tempBook.unitPrice | currency:'USD'}} </div> -->
+                                    <button (click)="addToFav(tempBook)" class="btn btn-primary btn-sm">Add to Favorite</button>
+                                </div>
+                            </div>
+
+                            <!--if books empty then display a message-->
+                            <div *ngIf="books?.length ==0" class ="alert alert-warning col-md-12" role="alert">
+                                No Books Found.
+                            </div>
+
+                        </div>
+
+                        <!-- begin footer-->
+
+                        <div class="footer-pagination">
+                            <div class="row">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-9" style="padding-left: 30%;">
+                                                <ngb-pagination [(page)]="thePageNumber"
+                                                                [pageSize]="thePageSize"
+                                                                [collectionSize]="theTotalElements"
+                                                                [maxSize] = "5"
+                                                                [boundaryLinks] = true
+                                                                (pageChange)="listBooks()">
+
+                                                </ngb-pagination>
+                                        </div>
+
+                                        <div class="col-md-3 mt-2" style="text-align: right;">
+                                            <span class="mr-2">Page Size</span>
+
+                                            <select (change)="updatePageSize($event.target.value)">
+                                                <option selected="true">5</option>
+                                                <option>10</option>
+                                                <option>20</option>
+                                                <option>50</option>  
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- end footer-->
+
+                    </div>
+                </div>
+            </div>
